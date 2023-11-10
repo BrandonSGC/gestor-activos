@@ -1,8 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import NavBar from "./components/NavBar/NavBar.jsx"
+import LoginPage from "./pages/login"
 export const App = () => {
-  
+
   return (
-    <>
-      <h1>Hello World!</h1>
-    </>
+    <div>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+
+        </Routes>
+      </Router>
+    </div>
   )
 }
