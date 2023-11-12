@@ -6,6 +6,10 @@ const links = [
         name: 'Login',
         href: '/login'
     },
+    {
+        name: 'Registrar Usuarios',
+        href: '/register'
+    },
 ];
 
 const NavBar = () => {
