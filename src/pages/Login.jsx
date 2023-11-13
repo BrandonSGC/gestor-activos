@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import '../assets/styles/login.css';
+import ForgotPasswordModal from '../components/ForgotPasswordModal/ForgotPasswordModal';
 
 const LoginPage = () => {
     const [loginData, setLoginData] = useState({
         usuario: '',
         contraseña: '',
     });
+    const [showModal, setShowModal] = useState(false);
+
+    const handleForgotPasswordClick = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -14,6 +24,7 @@ const LoginPage = () => {
             [name]: value,
         });
     };
+
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -48,8 +59,9 @@ const LoginPage = () => {
                 required
             />
 
-            <a href="">¿Olvidaste tu contraseña?</a>
+            <span onClick={handleForgotPasswordClick} className='forgot-password-span'>¿Olvidaste tu contraseña?</span>
             <button className='btn-login' type="submit">Iniciar sesión</button>
+            {showModal && <ForgotPasswordModal onClose={handleCloseModal} />}
         </form>
     );
 };
