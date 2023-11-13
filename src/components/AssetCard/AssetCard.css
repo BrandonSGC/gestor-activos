@@ -1,0 +1,44 @@
+/* Asset */
+.asset {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  margin: .8rem 0;
+  border: 1px solid #d9d5d5;
+  border-radius: 1rem;
+}
+
+.asset__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.asset__data {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: center;
+  text-align: center;
+}
+
+.asset__registereddate,
+.asset__serialnumber {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.asset__icon {
+  width: 1.5rem;
+}
+
+.asset__status {
+  color: rgb(100, 184, 67);
+}
+
+.asset__link {
+  text-decoration: none;
+  color: rgb(11, 121, 11);
+  font-weight: 700;
+}

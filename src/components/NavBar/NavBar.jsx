@@ -10,6 +10,10 @@ const links = [
         name: 'Registrar Usuarios',
         href: '/register'
     },
+    {
+        name: 'Activos',
+        href: '/user/assets'
+    },
 ];
 
 const NavBar = () => {
