@@ -166,7 +166,7 @@ const ModifyUserPage = () => {
                         </div>
                     </div>
                     <div className='button-modify-container'>
-                        <button type="submit" className="btn-modify">Modificar</button>
+                        <button type="submit" className="btn-modify">Guardar cambios</button>
                         <button type="submit" className="btn-modify">Cancelar</button>
                     </div>
 
