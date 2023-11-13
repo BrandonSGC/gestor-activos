@@ -14,6 +14,10 @@ const links = [
         name: 'Activos',
         href: '/user/assets'
     },
+    {
+        name: 'Modificar Usuario',
+        href: '/modify-user'
+    }
 ];
 
 const NavBar = () => {
