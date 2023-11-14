@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../assets/styles/modifyuser.css';
+import '../assets/styles/modifyUser.css';
 
 const ModifyUserPage = () => {
     const [formData, setFormData] = useState({
