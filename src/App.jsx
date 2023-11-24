@@ -4,6 +4,7 @@ import LoginPage from "./pages/Login"
 import RegisterPage from "./pages/Register.jsx"
 import ModifyUserPage from "./pages/ModifyUser.jsx"
 import { AssetsPreview } from "./pages/AssetsPreview.jsx"
+import { AssetDetail } from "./pages/AssetDetail.jsx"
 export const App = () => {
 
   return (
@@ -14,7 +15,8 @@ export const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/modify-user" element={<ModifyUserPage />} />
-          <Route path="/user/assets" element={<AssetsPreview />} />
+          <Route path="/assets" element={<AssetsPreview />} />
+          <Route path="/assets/:id" element={<AssetDetail />} />
         </Routes>
       </Router>
     </div>

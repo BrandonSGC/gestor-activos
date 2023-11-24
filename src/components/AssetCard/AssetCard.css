@@ -9,9 +9,16 @@
 }
 
 .asset__header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.asset__kind {
+  grid-column: 4 / 5;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .asset__data {

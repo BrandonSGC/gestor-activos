@@ -12,7 +12,7 @@ const links = [
     },
     {
         name: 'Activos',
-        href: '/user/assets'
+        href: '/assets'
     },
     {
         name: 'Modificar Usuario',

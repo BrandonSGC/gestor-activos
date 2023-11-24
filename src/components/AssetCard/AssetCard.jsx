@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import "./AssetCard.css";
 
-export const AssetCard = () => {
+export const AssetCard = ({asset}) => {
+  const {assetId, modelo, fechaRegistro, numSerie, estado, tipo} = asset;
+
   return (
     <div className="asset">
       <div className="asset__header">
         <p className="asset__model">
-          {" "}
-          Modelo del activo: <span>Optilex 3080</span>
+          Modelo del activo: <span>{modelo}</span>
         </p>
         <div className="asset__kind">
-          <span>CPU</span>
-          <img src="" alt="icon" />
+          <img src="/assets/computer.svg" alt="icon" />
+          <span>{tipo}</span>
         </div>
       </div>
 
@@ -19,22 +20,22 @@ export const AssetCard = () => {
         <div className="asset__registereddate">
           <img className="asset__icon" src="/assets/paragraph.svg" alt="icon" />
           <p>
-            Registrado desde: <span>8/6/2023</span>
+            Registrado desde: <span>{fechaRegistro}</span>
           </p>
         </div>
 
         <div className="asset__serialnumber">
           <img className="asset__icon" src="/assets/paragraph.svg" alt="icon" />
           <p>
-            Número de Serie: <span>X3BT011306</span>
+            Número de Serie: <span>{numSerie}</span>
           </p>
         </div>
 
         <div className="asset__status">
-          <p>En proceso de solicitud</p>
+          <p>{estado}</p>
         </div>
 
-        <Link to={`#`} className="asset__link">
+        <Link to={`/assets/${assetId}`} className="asset__link">
           Ver detalles
         </Link>
       </div>
