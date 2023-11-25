@@ -17,6 +17,10 @@ const links = [
     {
         name: 'Modificar Usuario',
         href: '/modify-user'
+    },
+    {
+        name: 'Administrar Solicitudes',
+        href: '/admin/requests'
     }
 ];
 
