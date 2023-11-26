@@ -118,18 +118,21 @@ export const AssetDetail = () => {
                 className="input-asset"
               />
             </div>
+            <div className="form-group">
+              <label htmlFor="area-mover" className="label-asset">Exacta</label>
+              <input
+                type="text"
+                id="exacta-mover"
+                name="exacta-mover"
+                className="input-asset"
+              />
+            </div>
 
           </div>
           <div className="form-row">
-
-            <div className="form-group">
-              <label htmlFor="textarea-asset" className="label-asset">Motivo de traslado</label>
-              <textarea className="textarea-asset" name="motivo" id="motivo" cols="30" rows="10"></textarea>
-            </div>
             <div className="form-group">
               <div className='button-asset-container'>
-                <button type="submit" className="btn-asset">Aprobar solicitud</button>
-                <button type="submit" className="btn-asset">Rechazar solicitud</button>
+                <button type="submit" className="btn-asset">Solicitar activo</button>
               </div>
             </div>
 
