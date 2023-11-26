@@ -15,6 +15,14 @@ const links = [
         href: '/assets'
     },
     {
+        name: 'Bodega de tránsito',
+        href: '/assets/transit'
+    },
+    {
+        name: 'Bodega de desecho',
+        href: '/assets/waste'
+    },
+    {
         name: 'Modificar Usuario',
         href: '/modify-user'
     },

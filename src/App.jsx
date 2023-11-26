@@ -6,6 +6,8 @@ import ModifyUserPage from "./pages/ModifyUser.jsx"
 import { AssetsPreview } from "./pages/AssetsPreview.jsx"
 import { AssetDetail } from "./pages/AssetDetail.jsx"
 import { AdminRequests } from "./pages/AdminRequests.jsx"
+import { TransitWarehouse } from "./pages/TransitWarehouse.jsx"
+import { WasteWarehouse } from "./pages/WasteWarehouse.jsx"
 export const App = () => {
 
   return (
@@ -17,6 +19,8 @@ export const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/modify-user" element={<ModifyUserPage />} />
           <Route path="/assets" element={<AssetsPreview />} />
+          <Route path="/assets/transit" element={<TransitWarehouse />} />
+          <Route path="/assets/waste" element={<WasteWarehouse />} />
           <Route path="/assets/:id" element={<AssetDetail />} />
           <Route path="/admin/requests" element={<AdminRequests />} />
         </Routes>
