@@ -4,8 +4,8 @@ import ForgotPasswordModal from '../components/ForgotPasswordModal/ForgotPasswor
 
 const LoginPage = () => {
     const [loginData, setLoginData] = useState({
-        usuario: '',
-        contraseña: '',
+        username: '',
+        password: '',
     });
     const [showModal, setShowModal] = useState(false);
 
@@ -25,36 +25,52 @@ const LoginPage = () => {
         });
     };
 
-
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos de inicio de sesión:', loginData);
-    };
 
+        const formData = new FormData();
+        console.log(loginData)
+        formData.append('username', loginData.username);
+        formData.append('password', loginData.password);
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/login', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Inicio de sesión exitoso:', data);
+            } else {
+                console.error('Error en el inicio de sesión:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error en la solicitud HTTP:', error);
+        }
+    };
     return (
         <form className="login-container" onSubmit={handleLoginSubmit}>
-            <label htmlFor="usuario" className='label-login'>Usuario</label>
+            <label htmlFor="username" className='label-login'>Usuario</label>
             <input
-                id="usuario"
-                name="usuario"
+                id="username"
+                name="username"
                 className='input-login'
                 type="text"
-                value={loginData.usuario}
+                value={loginData.username}
                 onChange={handleInputChange}
-                pattern="^[A-Za-z0-9]{6,20}$"
                 title="El usuario debe contener una combinación de letras, números y caracteres especiales. Longitud mínima de 6 y máxima de 20."
                 required
             />
 
-            <label htmlFor="contraseña" className='label-login'>Contraseña</label>
+            <label htmlFor="password" className='label-login'>Contraseña</label>
             <input
-                id="contraseña"
-                name="contraseña"
+                id="password"
+                name="password"
                 className='input-login'
                 type="password"
-                value={loginData.contraseña}
+                value={loginData.password}
                 onChange={handleInputChange}
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$"
                 title="La contraseña debe contener una combinación segura de al menos una letra mayúscula, una letra minúscula, un número y un carácter especial. Longitud mínima de 8 y máxima de 20."
                 required
             />
