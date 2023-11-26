@@ -1,0 +1,127 @@
+.asset-container {
+  width: 90%;
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.title-asset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.title-asset p {
+  color: #6A6A6A;
+  text-align: center;
+  font-family: 'Roboto Flex';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.title-asset hr {
+  width: 813px;
+  flex-shrink: 0;
+  border-radius: 26px;
+  border: 3px solid #AEC3AE;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.form-asset-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-asset {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: calc(30% - 10px);
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.label-asset {
+  color: #6A6A6A;
+  text-align: center;
+  font-family: 'Roboto Flex';
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.input-asset {
+  width: 90%;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 26px;
+  border: 3px solid #AEC3AE;
+  background: #FFEEF4;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.textarea-asset {
+  width: 90%;
+  flex-shrink: 0;
+  border-radius: 26px;
+  border: 3px solid #AEC3AE;
+  background: #FFEEF4;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+.btn-asset {
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+}
+
+.btn-asset {
+  width: 518px;
+  height: 62px;
+  border-radius: 25px;
+  border: 3px solid #94A684;
+  background: #AEC3AE;
+  color: #6A6A6A;
+  text-align: center;
+  font-family: 'Roboto Flex';
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.form-asset::before {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  background-image: url('https://www.cuc.ac.cr/wp-content/uploads/2022/12/excel-curso.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.button-asset-container {
+  display: flex;
+  flex-direction: row;
+  margin: 40px 10px 10px 10px;
+  gap: 20px;
+}
