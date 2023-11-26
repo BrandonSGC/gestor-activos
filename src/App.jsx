@@ -23,6 +23,7 @@ export const App = () => {
           <Route path="/assets/waste" element={<WasteWarehouse />} />
           <Route path="/assets/:id" element={<AssetDetail />} />
           <Route path="/admin/requests" element={<AdminRequests />} />
+          <Route path="/*" element={<LoginPage />} />
         </Routes>
       </Router>
     </div>

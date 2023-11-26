@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../assets/styles/login.css';
 import ForgotPasswordModal from '../components/ForgotPasswordModal/ForgotPasswordModal';
+import { UserContext } from '../context/UserContext';
 
 const LoginPage = () => {
+    const {user, setUser} = useContext(UserContext);
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
@@ -29,7 +31,6 @@ const LoginPage = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        console.log(loginData)
         formData.append('username', loginData.username);
         formData.append('password', loginData.password);
 
@@ -41,7 +42,9 @@ const LoginPage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('Inicio de sesión exitoso:', data);
+                setUser({...data.usuario});
+                
+
             } else {
                 console.error('Error en el inicio de sesión:', response.statusText);
             }
@@ -49,6 +52,7 @@ const LoginPage = () => {
             console.error('Error en la solicitud HTTP:', error);
         }
     };
+    console.log(user);
     return (
         <form className="login-container" onSubmit={handleLoginSubmit}>
             <label htmlFor="username" className='label-login'>Usuario</label>

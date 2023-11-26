@@ -3,9 +3,21 @@ import { UserContext } from "./UserContext"
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    id: 1,
-    AreaID: 1,
-    area: 'Bodega'
+    AreaID: 3,
+    AreaNombre: "",
+    Cedula: "",
+    Contraseña: "",
+    Correo: "",
+    DepartamentoID: "",
+    DepartamentoNombre: "",
+    EstadoUsuarioID: "",
+    EstadoUsuarioNombre: "",
+    Nombre: "",
+    PrimerApellido: "",
+    RolID: "",
+    RolNombre: "",
+    SegundoApellido: "",
+    Usuario: "",
   })
 
   return (

@@ -13,7 +13,6 @@ export const AssetsPreview = () => {
 
   useEffect(() => {
     const getAssets = async() => {
-      setAssets(await getAllAssets());
       const allAssets = await getAllAssets();
       setAssets(allAssets.filter(asset => asset.IdArea === user.AreaID));
       setIsLoading(false);
