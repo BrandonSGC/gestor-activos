@@ -1,12 +1,11 @@
-export const sendRequestStatus = async ({requestId, status}) => {
+export const sendRequestStatus = async (requestId, status) => {
   try {
-    const url = `${requestId}`;
+    const url = `http://127.0.0.1:8000/actualizar-solicitud/?solicitud_id=${requestId}&estado=${status}`;
     const response = await fetch(url, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(status),
     })
 
     if (response.ok) {
