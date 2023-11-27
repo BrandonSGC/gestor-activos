@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/styles/InsertItems.css';
 import * as XLSX from 'xlsx';
 
@@ -16,17 +16,46 @@ const ExcelUploadModal = ({ closeModal, handleFileUpload }) => {
                 <span className="close" onClick={closeModal}>
                     &times;
                 </span>
-                <h2>Upload Excel File</h2>
-                <input type="file" onChange={handleFileChange} accept=".xlsx, .xls" />
+                <h2>Tipo de archivo permitido: xlsx (Excel)</h2>
+                <input className="input-inserts" type="file" onChange={handleFileChange} accept=".xlsx, .xls" />
             </div>
         </div>
     );
 };
 const InsertItemsPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [marcaOptions, setMarcaOptions] = useState([]);
+    const [departamentoOptions, setDepartamentoOptions] = useState([]);
+    const [areaOptions, setAreaOptions] = useState([]);
+    const [condicionOptions, setCondicionOptions] = useState([]);
+    const [estadoOptions, setEstadoOptions] = useState([]);
+    const [modeloOptions, setModeloOptions] = useState([]);
 
+    const fetchData = async (url, setStateFunction) => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setStateFunction(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    useEffect(() => {
+        fetchData('http://127.0.0.1:8000/marcas', setMarcaOptions);
+        fetchData('http://127.0.0.1:8000/modelos', setModeloOptions);
+        fetchData('http://127.0.0.1:8000/departamentos', setDepartamentoOptions);
+        fetchData('http://127.0.0.1:8000/areas', setAreaOptions);
+        fetchData('http://127.0.0.1:8000/condicion', setCondicionOptions);
+        fetchData('http://127.0.0.1:8000/estadoactivo', setEstadoOptions);
+    }, []);
+
+    console.log(marcaOptions)
     const openModal = () => {
         setIsModalOpen(true);
+
     };
 
     const closeModal = () => {
@@ -76,25 +105,113 @@ const InsertItemsPage = () => {
         nserie: '',
         estado: '',
         condicion: '',
+        marca: '',
         modelo: '',
-        departamento: '',
         area: '',
+        departamento: '',
         exacta: '',
+
     });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prevFormData) => ({
+            ...prevFormData,
             [name]: value,
-        });
+        }));
     };
-
-    const handleSubmit = (e) => {
+    const handleApiError = (error) => {
+        console.error('Error al insertar el activo:', error);
+        alert('Hubo un error al insertar el activo. Por favor, inténtalo nuevamente.');
+    };
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos del formulario:', formData);
-    };
+        if (!formData.nserie.trim()) {
+            alert('Por favor, digite un número de serie.');
+            return;
+        }
 
+        if (!formData.estado) {
+            alert('Por favor, ingrese un Estado del Activo.');
+            return;
+        }
+
+        if (!formData.condicion) {
+            alert('Por favor, ingrese una Condición del Activo.');
+            return;
+        }
+
+        if (!formData.modelo) {
+            alert('Por favor, ingrese un modelo.');
+            return;
+        }
+
+        if (!formData.area) {
+            alert('Por favor, ingrese un Área.');
+            return;
+        }
+
+        if (!formData.departamento) {
+            alert('Por favor, ingrese un Departamento.');
+            return;
+        }
+
+        if (!formData.exacta.trim()) {
+            alert('Por favor, ingrese el lugar exacto donde se encuentra el activo en el campo Exacta.');
+            return;
+        }
+
+        const convertToNumber = (value) => {
+            const numberValue = parseInt(value, 10);
+            return isNaN(numberValue) ? null : numberValue;
+        };
+
+        const formDataToSend = {
+            Nombre: formData.nombre,
+            NumeroSerie: formData.nserie,
+            EstadoID: convertToNumber(formData.estado),
+            CondicionID: convertToNumber(formData.condicion),
+            MarcaID: convertToNumber(formData.marca),
+            ModeloID: convertToNumber(formData.modelo),
+            AreaID: convertToNumber(formData.area),
+            DepartamentoID: convertToNumber(formData.departamento),
+            Exacta: formData.exacta,
+        };
+
+        console.log(formDataToSend)
+        try {
+            const response = await fetch('http://127.0.0.1:8000/activos/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formDataToSend),
+            });
+            const responseData = await response.json();
+            console.log('Nuevo activo creado:', responseData)
+
+            if (!response.ok) {
+                throw new Error(`Error al insertar el activo: ${response.statusText}`);
+            }
+
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                nombre: '',
+                nserie: '',
+                estado: '',
+                condicion: '',
+                modelo: '',
+                marca: '',
+                departamento: '',
+                area: '',
+                exacta: '',
+            }));
+
+            alert('Activo insertado exitosamente.');
+        } catch (error) {
+            handleApiError(error);
+        }
+    };
     return (
         <div className="inserts-container">
             <div className='title-inserts'>
@@ -131,45 +248,57 @@ const InsertItemsPage = () => {
 
                         <div className="form-group">
                             <label htmlFor="estado" className="label-inserts">Estado del activo</label>
-                            <input
-                                type="text"
+                            <select
                                 id="estado"
                                 name="estado"
                                 value={formData.estado}
                                 onChange={handleInputChange}
                                 required
-                                className="input-inserts"
-                            />
+                                className="input-inserts select-input"
+                            >
+                                <option value="">Seleccione un Estado de activo</option>
+                                {estadoOptions.map((estado, index) => (
+                                    <option key={estado.EstadoID} value={estado.EstadoID}>{estado.NombreEstado}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="condicion" className="label-inserts">Condición del activo</label>
-                            <input
-                                type="text"
+                            <select
                                 id="condicion"
                                 name="condicion"
                                 value={formData.condicion}
                                 onChange={handleInputChange}
                                 required
-                                className="input-inserts"
-                            />
+                                className="input-inserts select-input"
+                            >
+                                <option value="">Seleccione una Condición de activo</option>
+                                {condicionOptions.map((condicion, index) => (
+                                    <option key={condicion.CondicionID} value={condicion.CondicionID}>{condicion.NombreCondicion}</option>
+                                ))}
+                            </select>
                         </div>
+
 
 
                     </div>
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="modelo" className="label-inserts">Modelo</label>
+                            <label htmlFor="marca" className="label-inserts">Marca</label>
                             <select
-                                id="modelo"
-                                name="modelo"
-                                value={formData.modelo}
+                                id="marca"
+                                name="marca"
+                                value={formData.marca}
                                 onChange={handleInputChange}
                                 required
                                 className="input-inserts select-input"
                             >
-                                {/* Opciones del modelo */}
+                                <option value="">Seleccione una Marca</option>
+                                {marcaOptions.map((marca, index) => (
+                                    <option key={marca.MarcaID} value={marca.MarcaID}>{marca.NombreMarca}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="form-group">
@@ -182,12 +311,14 @@ const InsertItemsPage = () => {
                                 required
                                 className="input-inserts select-input"
                             >
-                                {/* Opciones del departamento */}
+                                <option value="">Seleccione un Departamento</option>
+                                {departamentoOptions.map((departamento, index) => (
+                                    <option key={departamento.DepartamentoID} value={departamento.DepartamentoID}>{departamento.NombreDepartamento}</option>
+                                ))}
                             </select>
                         </div>
-
                         <div className="form-group">
-                            <label htmlFor="area" className="label-inserts">Área:</label>
+                            <label htmlFor="area" className="label-inserts">Área</label>
                             <select
                                 id="area"
                                 name="area"
@@ -196,14 +327,16 @@ const InsertItemsPage = () => {
                                 required
                                 className="input-inserts select-input"
                             >
-                                {/* Opciones del área */}
+                                <option value="">Seleccione una Área</option>
+                                {areaOptions.map((area, index) => (
+                                    <option key={area.AreaID} value={area.AreaID}>{area.NombreArea}</option>
+                                ))}
                             </select>
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="exacta" className="label-inserts">Exacta</label>
                             <input
-                                type="password"
                                 id="exacta"
                                 name="exacta"
                                 value={formData.exacta}
@@ -212,6 +345,22 @@ const InsertItemsPage = () => {
                                 className="input-inserts"
                             />
                         </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="modelo" className="label-inserts">Modelo</label>
+                        <select
+                            id="modelo"
+                            name="modelo"
+                            value={formData.modelo}
+                            onChange={handleInputChange}
+                            required
+                            className="input-inserts select-input"
+                        >
+                            <option value="">Seleccione un modelo</option>
+                            {modeloOptions.map((modelo, index) => (
+                                <option key={modelo.ModeloID} value={modelo.ModeloID}>{modelo.NombreModelo}</option>
+                            ))}
+                        </select>
                     </div>
 
 
