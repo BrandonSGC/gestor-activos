@@ -23,7 +23,7 @@ export const WasteWarehouse = () => {
   return (
     <>
       <div className="aseets__container">
-        <AssetsHeader title="Bodega de Desecho" user={user} />
+        <AssetsHeader title="Bodega de Desecho"/>
         {isLoading && <h2>Cargando activos...</h2>}
         {(wasteAssets.length === 0) && "No se encontraron resultados..."}
         <AssetsList assets={wasteAssets}/>

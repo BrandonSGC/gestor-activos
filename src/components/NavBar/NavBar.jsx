@@ -24,11 +24,15 @@ const links = [
     },
     {
         name: 'Modificar Usuario',
-        href: '/modify-user'
+        href: '/modify-user/0'
     },
     {
         name: 'Administrar Solicitudes',
         href: '/admin/requests'
+    },
+    {
+        name: 'Insertar Activos',
+        href: '/admin/insert-items'
     }
 ];
 

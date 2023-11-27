@@ -1,5 +1,9 @@
+import { useContext } from "react";
+import {UserContext} from '../../context/UserContext'
+export const AssetsHeader = ({title}) => {
 
-export const AssetsHeader = ({title, user}) => {
+  const {user} = useContext(UserContext);
+  
   return (
     <header className="assets__header">
       <div className="assets__display">
@@ -14,7 +18,7 @@ export const AssetsHeader = ({title, user}) => {
         </form>
       </div>
       <p className="assets__area">
-        Area: <span>{user.area}</span>
+        Area: <span>{user.AreaNombre}</span>
       </p>
     </header>
   );
