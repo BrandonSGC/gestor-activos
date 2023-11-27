@@ -29,6 +29,10 @@ const links = [
     {
         name: 'Administrar Solicitudes',
         href: '/admin/requests'
+    },
+    {
+        name: 'Insertar Activos',
+        href: '/admin/insert-items'
     }
 ];
 

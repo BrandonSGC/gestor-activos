@@ -6,6 +6,7 @@ import ModifyUserPage from "./pages/ModifyUser.jsx"
 import { AssetsPreview } from "./pages/AssetsPreview.jsx"
 import { AssetDetail } from "./pages/AssetDetail.jsx"
 import { AdminRequests } from "./pages/AdminRequests.jsx"
+import InsertItemsPage from "./pages/InsertItems.jsx"
 import { TransitWarehouse } from "./pages/TransitWarehouse.jsx"
 import { WasteWarehouse } from "./pages/WasteWarehouse.jsx"
 export const App = () => {
@@ -16,6 +17,7 @@ export const App = () => {
         <NavBar />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin/insert-items" element={<InsertItemsPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/modify-user" element={<ModifyUserPage />} />
           <Route path="/assets" element={<AssetsPreview />} />

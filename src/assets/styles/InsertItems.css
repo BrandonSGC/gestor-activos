@@ -1,0 +1,123 @@
+.inserts-container {
+    width: 90%;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+.title-inserts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.title-inserts p {
+    color: #6A6A6A;
+    text-align: center;
+    font-family: 'Roboto Flex';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.title-inserts hr {
+    width: 813px;
+    flex-shrink: 0;
+    border-radius: 26px;
+    border: 3px solid #AEC3AE;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.form-inserts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-inserts {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    width: calc(30% - 10px);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 80px;
+}
+
+.label-inserts {
+    color: #6A6A6A;
+    text-align: center;
+    font-family: 'Roboto Flex';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.input-inserts {
+    width: 90%;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 26px;
+    border: 3px solid #AEC3AE;
+    background: #FFEEF4;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.select-input {
+    width: 92% !important;
+    height: 42px !important;
+}
+
+.btn-inserts {
+    width: 100%;
+    max-width: 300px;
+    align-self: center;
+}
+
+.btn-inserts {
+    width: 518px;
+    height: 42px;
+    border-radius: 25px;
+    border: 3px solid #94A684;
+    background: #AEC3AE;
+    color: #6A6A6A;
+    text-align: center;
+    font-family: 'Roboto Flex';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.form-inserts::before {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    background-image: url('https://www.cuc.ac.cr/wp-content/uploads/2022/12/excel-curso.png');
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+.button-inserts-container {
+    display: flex;
+    flex-direction: row;
+    margin: 40px 10px 10px 10px;
+    gap: 20px;
+}
