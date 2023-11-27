@@ -27,12 +27,12 @@ export const AdminRequests = () => {
           Administración de Solitudes de Activos
         </h1>
         <div className="requests__display">
-          <header className="requests__header">
+          {/* <header className="requests__header">
             <p className="requests__filter">Filtrar por:</p>
             <button className="requests__button">Pendientes</button>
             <button className="requests__button">Aprobadas</button>
             <button className="requests__button">Rechazadas</button>
-          </header>
+          </header> */}
 
           <ul className="requests__list">
             {isLoading && <p>Cargando solicitudes...</p>}
