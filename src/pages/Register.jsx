@@ -63,7 +63,7 @@ const RegisterPage = () => {
             nombre: '',
             apellidos: '',
             correo: '',
-            usuario: '',
+            Usuario: '',
             contraseña: '',
             area: '',
             departamento: '',
