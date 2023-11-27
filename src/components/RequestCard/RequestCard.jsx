@@ -1,31 +1,34 @@
 import { sendRequestStatus } from "../../helpers/sendRequestStatus";
 
-export const RequestCard = ({request}) => {
-  const { solicitudId, nombreUsuario, codigoActivo, estado } = request;
+export const RequestCard = ({request, state}) => {
+  const { SolicitudID, Usuario, Activo, EstadoSolicitud } = request;
+  const {action, setAction} = state;
 
   const onApprove = async() => {
-    console.log(`Aprobando solicitud con id: ${solicitudId}...`);
+    console.log(`Aprobando solicitud con id: ${SolicitudID}...`);
     const status = 'Aprobada';
-    await sendRequestStatus(solicitudId, status);
+    await sendRequestStatus(SolicitudID, status);
+    setAction(!action);
   }
 
   const onReject = async() => {
-    console.log(`Rechazando solicitud con id: ${solicitudId}...`);
+    console.log(`Rechazando solicitud con id: ${SolicitudID}...`);
     const status = 'Rechazada';
-    await sendRequestStatus(solicitudId, status);
+    await sendRequestStatus(SolicitudID, status);
+    setAction(!action);
   }
 
   return (
     <li className="requests__request">
       <div className="requests__info">
         <p className="requests__data">
-          Usuario: <span className="requests__user">{nombreUsuario}</span>
+          Usuario: <span className="requests__user">{Usuario}</span>
         </p>
         <p className="requests__data">
-          Activo: <span className="requests__asset">{codigoActivo}</span>
+          Activo: <span className="requests__asset">{Activo}</span>
         </p>
         <p className="requests__data">
-          Estado: <span className="requests__status">{estado}</span>
+          Estado: <span className="requests__status">{EstadoSolicitud}</span>
         </p>
       </div>
       <div className="requests__actions">

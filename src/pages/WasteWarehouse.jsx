@@ -5,16 +5,17 @@ import { AssetsList } from "../components/AssetsList/AssetsList";
 import { UserContext } from "../context/UserContext";
 import { getAllAssets } from "../helpers/getAllAssets";
 
-export const AssetsPreview = () => {
+
+export const WasteWarehouse = () => {
   const { user } = useContext(UserContext);
   
   const [isLoading, setIsLoading] = useState(true);
-  const [assets, setAssets] = useState([]);
+  const [wasteAssets, setWasteAssets] = useState([]);
 
   useEffect(() => {
     const getAssets = async() => {
-      const allAssets = await getAllAssets();
-      setAssets(allAssets.filter(asset => asset.IdArea === user.AreaID));
+      const assets = await getAllAssets();
+      setWasteAssets(assets.filter(asset => asset.IDEstado === 3));
       setIsLoading(false);
     }
     getAssets();
@@ -22,10 +23,10 @@ export const AssetsPreview = () => {
   return (
     <>
       <div className="aseets__container">
-        <AssetsHeader title="Activos Registrados" user={user} />
+        <AssetsHeader title="Bodega de Desecho" user={user} />
         {isLoading && <h2>Cargando activos...</h2>}
-        {(assets.length === 0) && "No se encontraron resultados..."}
-        <AssetsList assets={assets}/>
+        {(wasteAssets.length === 0) && "No se encontraron resultados..."}
+        <AssetsList assets={wasteAssets}/>
       </div>
     </>
   );

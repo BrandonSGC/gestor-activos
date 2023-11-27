@@ -1,6 +1,6 @@
-export const getAssetsByArea = async(area) => {
+export const getAllAssets = async() => {
   try {
-    const url = `${area}`;
+    const url = `http://127.0.0.1:8000/activos`;
     const response = await fetch(url);
     if (!response.ok) return [];
     return await response.json();

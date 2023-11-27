@@ -1,55 +1,25 @@
 import { useState } from "react";
 import "../assets/styles/AdminRequests.css";
-import { useReducer } from "react";
 import { useEffect } from "react";
 import { getAllRequests } from "../helpers/getAllRequests";
 import { RequestCard } from "../components/RequestCard/RequestCard";
 
 export const AdminRequests = () => {
 
-  const [requests, setRequests] = useState([
-    {
-      solicitudId: 1,
-      nombreUsuario: 'Brandon Gomez Carvajal',
-      codigoActivo: 'IKSDH73234MSAO23',
-      estado: 'Pendiente...'
-    },
-    {
-      solicitudId: 2,
-      nombreUsuario: 'Brandon Gomez Carvajal',
-      codigoActivo: 'IKSDH73234MSAO23',
-      estado: 'Pendiente...'
-    },
-    {
-      solicitudId: 3,
-      nombreUsuario: 'Brandon Gomez Carvajal',
-      codigoActivo: 'IKSDH73234MSAO23',
-      estado: 'Pendiente...'
-    },
-    {
-      solicitudId: 4,
-      nombreUsuario: 'Brandon Gomez Carvajal',
-      codigoActivo: 'IKSDH73234MSAO23',
-      estado: 'Pendiente...'
-    },
-    {
-      solicitudId: 5,
-      nombreUsuario: 'Brandon Gomez Carvajal',
-      codigoActivo: 'IKSDH73234MSAO23',
-      estado: 'Pendiente...'
-    },
-  ]);
+  const [requests, setRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [action, setAction] = useState(false);
 
   useEffect(() => {
     const getRequests = async () => {
       setRequests(await getAllRequests());
       setIsLoading(false);
     }
-    // getRequests();
-  }, [])
+    getRequests();
+  }, [action])
 
 
+  
   return (
     <div className="requests">
       <div className="requests__container">
@@ -65,8 +35,9 @@ export const AdminRequests = () => {
           </header>
 
           <ul className="requests__list">
+            {isLoading && <p>Cargando solicitudes...</p>}
             {requests.map( request => (
-              <RequestCard key={request.solicitudId} request={{...request}}/>
+              <RequestCard key={request.SolicitudID} request={{...request}} state={{action, setAction}}/>
             ))}
           </ul>
         </div>
