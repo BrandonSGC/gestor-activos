@@ -36,6 +36,7 @@ export const AdminRequests = () => {
 
           <ul className="requests__list">
             {isLoading && <p>Cargando solicitudes...</p>}
+            {(requests.length == 0) && <p>No se han realizado solicitudes...</p>}
             {requests.map( request => (
               <RequestCard key={request.SolicitudID} request={{...request}} state={{action, setAction}}/>
             ))}
