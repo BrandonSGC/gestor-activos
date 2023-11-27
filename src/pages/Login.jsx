@@ -4,7 +4,7 @@ import ForgotPasswordModal from '../components/ForgotPasswordModal/ForgotPasswor
 import { UserContext } from '../context/UserContext';
 
 const LoginPage = () => {
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
@@ -42,7 +42,7 @@ const LoginPage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser({...data.usuario});
+                setUser({ ...data.usuario });
                 alert(data.mensaje);
             } else {
                 alert('Credenciales invalidas...');
@@ -78,9 +78,8 @@ const LoginPage = () => {
                 required
             />
 
-            <span onClick={handleForgotPasswordClick} className='forgot-password-span'>¿Olvidaste tu contraseña?</span>
             <button className='btn-login' type="submit">Iniciar sesión</button>
-            {showModal && <ForgotPasswordModal onClose={handleCloseModal} />}
+
         </form>
     );
 };
