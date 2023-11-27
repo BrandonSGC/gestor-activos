@@ -22,8 +22,8 @@ const RegisterPage = () => {
     const [departamentos, setDepartamentos] = useState([]);
     const [roles, setRoles] = useState([]);
 
-    useEffect(()=> {
-        const getData = async() => {
+    useEffect(() => {
+        const getData = async () => {
             setAreas(await getAreas());
             setDepartamentos(await getDepartments());
             setRoles(await getRoles());
@@ -41,7 +41,50 @@ const RegisterPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        if (!/^[0-9]{9}$/.test(formData.cedula)) {
+            setError("Por favor, ingrese una cédula válida de 9 dígitos numéricos");
+            return;
+        }
+
+        if (!/^[A-Za-z ]{1,50}$/.test(formData.nombre)) {
+            setError("El nombre debe contener solo letras y estar dentro del límite de 50 caracteres");
+            return;
+        }
+
+        if (!/^[A-Za-z ]{1,50}$/.test(formData.apellidos)) {
+            setError("Los apellidos deben contener solo letras y espacios, dentro del límite de 50 caracteres");
+            return;
+        }
+
+        if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/.test(formData.correo)) {
+            setError("Por favor, ingrese una dirección de correo electrónico válida en el formato usuario@ejemplo.com");
+            return;
+        }
+
+        if (!/^[A-Za-z0-9]{1,20}$/.test(formData.Usuario)) {
+            setError("El nombre de usuario debe ser único y puede contener solo caracteres alfanuméricos dentro del límite de 20 caracteres");
+            return;
+        }
+
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(formData.contraseña)) {
+            setError("La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial");
+            return;
+        }
+
+        if (formData.area === '') {
+            setError("Por favor, seleccione un área válida");
+            return;
+        }
+
+        if (formData.departamento === '') {
+            setError("Por favor, seleccione un departamento válido");
+            return;
+        }
+
+        if (formData.rol === '') {
+            setError("Por favor, seleccione un rol válido");
+            return;
+        }
         const usuarioData = {
             Cedula: parseInt(formData.cedula),
             Nombre: formData.nombre,
