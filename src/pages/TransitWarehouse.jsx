@@ -22,7 +22,7 @@ export const TransitWarehouse = () => {
   return (
     <>
       <div className="aseets__container">
-        <AssetsHeader title="Bodega de Tránsito" user={user} />
+        <AssetsHeader title="Bodega de Tránsito"/>
         {isLoading && <h2>Cargando activos...</h2>}
         {(transitAssets.length === 0) && "No se encontraron resultados..."}
         <AssetsList assets={transitAssets}/>

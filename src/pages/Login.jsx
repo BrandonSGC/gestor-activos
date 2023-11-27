@@ -43,16 +43,15 @@ const LoginPage = () => {
             if (response.ok) {
                 const data = await response.json();
                 setUser({...data.usuario});
-                
-
+                alert(data.mensaje);
             } else {
-                console.error('Error en el inicio de sesión:', response.statusText);
+                alert('Credenciales invalidas...');
             }
         } catch (error) {
             console.error('Error en la solicitud HTTP:', error);
         }
     };
-    console.log(user);
+
     return (
         <form className="login-container" onSubmit={handleLoginSubmit}>
             <label htmlFor="username" className='label-login'>Usuario</label>

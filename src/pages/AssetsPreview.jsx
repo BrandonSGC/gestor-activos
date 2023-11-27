@@ -22,7 +22,7 @@ export const AssetsPreview = () => {
   return (
     <>
       <div className="aseets__container">
-        <AssetsHeader title="Activos Registrados" user={user} />
+        <AssetsHeader title="Activos Registrados"/>
         {isLoading && <h2>Cargando activos...</h2>}
         {(assets.length === 0) && "No se encontraron resultados..."}
         <AssetsList assets={assets}/>
