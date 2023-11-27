@@ -69,7 +69,7 @@ export const AssetDetail = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="codigo" className="label-asset">Codigo de activo</label>
+              <label htmlFor="codigo" className="label-asset">Numero de serie</label>
               <input
                 type="text"
                 id="codigo"
