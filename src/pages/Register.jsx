@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../assets/styles/register.css';
 import { getAreas } from '../helpers/getAreas';
 import { getDepartments } from '../helpers/getDepartments';
@@ -55,6 +55,8 @@ const RegisterPage = () => {
             DepartamentoID: parseInt(formData.departamento),
             Usuario: formData.Usuario
         };
+
+        console.log(usuarioData);
 
         setFormData({
             cedula: '',
@@ -177,6 +179,7 @@ const RegisterPage = () => {
                                 required
                                 className="input-register"
                             >
+                                <option value="">--Seleccione una opción</option>
                                 {areas.map(area => (
                                     <option key={area.AreaID} value={area.AreaID}>{area.NombreArea}</option>
                                 ))}
@@ -193,6 +196,7 @@ const RegisterPage = () => {
                                 required
                                 className="input-register"
                             >
+                                <option value="">--Seleccione una opción</option>
                                 {departamentos.map(departamento => (
                                     <option key={departamento.DepartamentoID} value={departamento.DepartamentoID}>{departamento.NombreDepartamento}</option>
                                 ))}
@@ -209,6 +213,7 @@ const RegisterPage = () => {
                                 required
                                 className="input-register"
                             >
+                                <option value="">--Seleccione una opción</option>
                                 {roles.map(rol => (
                                     <option key={rol.RolID} value={rol.RolID}>{rol.NombreRol}</option>
                                 ))}
