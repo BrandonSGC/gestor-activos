@@ -53,6 +53,7 @@ const RegisterPage = () => {
             EstadoUsuarioID: 1,
             AreaID: parseInt(formData.area),
             DepartamentoID: parseInt(formData.departamento),
+            Usuario: formData.Usuario
         };
 
         setFormData({
@@ -141,8 +142,8 @@ const RegisterPage = () => {
                             <input
                                 type="text"
                                 id="usuario"
-                                name="usuario"
-                                value={formData.usuario}
+                                name="Usuario"
+                                value={formData.Usuario}
                                 onChange={handleInputChange}
                                 pattern="[A-Za-z0-9]{1,20}"
                                 required
