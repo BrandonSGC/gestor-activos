@@ -5,6 +5,7 @@ import { getAreas } from '../helpers/getAreas';
 import { getDepartments } from '../helpers/getDepartments';
 import { getRoles } from '../helpers/getRoles';
 import { createUser } from '../helpers/createUser';
+import { Link } from "react-router-dom";
 
 import { useParams } from 'react-router-dom';
 const ModifyUserPage = () => {
@@ -129,7 +130,7 @@ const ModifyUserPage = () => {
                                 value={formData.nombre}
                                 onChange={handleInputChange}
                                 pattern="[A-Za-z ]{1,50}"
-                                disabled={id !== 0}
+                                disabled={id !== '0'}
                                 required
                                 className="input-modify"
                             />
@@ -143,7 +144,7 @@ const ModifyUserPage = () => {
                                 name="apellidos"
                                 value={formData.apellidos}
                                 onChange={handleInputChange}
-                                disabled={id !== 0}
+                                disabled={id !== '0'}
                                 pattern="[A-Za-z ]{1,50}"
                                 required
                                 className="input-modify"
@@ -160,7 +161,7 @@ const ModifyUserPage = () => {
                                 id="correo"
                                 name="correo"
                                 value={formData.correo}
-                                disabled={id !== 0}
+                                disabled={id !== '0'}
                                 onChange={handleInputChange}
                                 required
                                 className="input-modify"
@@ -177,7 +178,7 @@ const ModifyUserPage = () => {
                                 onChange={handleInputChange}
                                 pattern="[A-Za-z0-9]{1,20}"
                                 required
-                                disabled={id == 0}
+                                disabled={id == '0'}
                                 className="input-modify"
                             />
                         </div>
@@ -190,7 +191,7 @@ const ModifyUserPage = () => {
                                 name="contraseña"
                                 value={formData.contraseña}
                                 onChange={handleInputChange}
-                                disabled={id !== 0}
+                                disabled={id !== '0'}
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                                 required
                                 className="input-modify"
@@ -207,7 +208,7 @@ const ModifyUserPage = () => {
                                 value={formData.area}
                                 onChange={handleInputChange}
                                 required
-                                disabled={id == 0}
+                                disabled={id == '0'}
                                 className="input-register"
                             >
                                 {areas.map(area => (
@@ -224,7 +225,7 @@ const ModifyUserPage = () => {
                                 value={formData.departamento}
                                 onChange={handleInputChange}
                                 required
-                                disabled={id == 0}
+                                disabled={id == '0'}
                                 className="input-register"
                             >
                                 {departamentos.map(departamento => (
@@ -241,7 +242,7 @@ const ModifyUserPage = () => {
                                 value={formData.rol}
                                 onChange={handleInputChange}
                                 required
-                                disabled={id == 0}
+                                disabled={id == '0'}
                                 className="input-register"
                             >
                                 {roles.map(rol => (
@@ -253,7 +254,9 @@ const ModifyUserPage = () => {
 
                     <div className='button-modify-container'>
                         <button type="submit" className="btn-modify">Guardar cambios</button>
-                        <button type="submit" className="btn-modify">Cancelar</button>
+                        <Link to={`/assets`} className="btn-modify">
+                            Cancelar
+                        </Link>
                     </div>
 
 
