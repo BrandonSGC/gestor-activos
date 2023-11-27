@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/styles/register.css';
+import { getAreas } from '../helpers/getAreas';
+import { getDepartments } from '../helpers/getDepartments';
+import { getRoles } from '../helpers/getRoles';
+import { createUser } from '../helpers/createUser';
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({
@@ -7,12 +11,25 @@ const RegisterPage = () => {
         nombre: '',
         apellidos: '',
         correo: '',
-        usuario: '',
+        Usuario: '',
         contraseña: '',
         area: '',
         departamento: '',
         rol: '',
     });
+
+    const [areas, setAreas] = useState([]);
+    const [departamentos, setDepartamentos] = useState([]);
+    const [roles, setRoles] = useState([]);
+
+    useEffect(()=> {
+        const getData = async() => {
+            setAreas(await getAreas());
+            setDepartamentos(await getDepartments());
+            setRoles(await getRoles());
+        }
+        getData();
+    }, [])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -22,10 +39,35 @@ const RegisterPage = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos del formulario:', formData);
-        // Aquí puedes agregar la lógica para enviar los datos al servidor o realizar otras acciones necesarias.
+        
+        const usuarioData = {
+            Cedula: parseInt(formData.cedula),
+            Nombre: formData.nombre,
+            PrimerApellido: formData.apellidos.split(' ')[0],
+            SegundoApellido: formData.apellidos.split(' ')[1] || '',
+            Contraseña: formData.contraseña,
+            CorreoElectronico: formData.correo,
+            RolID: parseInt(formData.rol),
+            EstadoUsuarioID: 1,
+            AreaID: parseInt(formData.area),
+            DepartamentoID: parseInt(formData.departamento),
+        };
+
+        setFormData({
+            cedula: '',
+            nombre: '',
+            apellidos: '',
+            correo: '',
+            usuario: '',
+            contraseña: '',
+            area: '',
+            departamento: '',
+            rol: '',
+        });
+
+        await createUser(usuarioData);
     };
 
     return (
@@ -134,7 +176,9 @@ const RegisterPage = () => {
                                 required
                                 className="input-register"
                             >
-                                {/* Opciones del área */}
+                                {areas.map(area => (
+                                    <option key={area.AreaID} value={area.AreaID}>{area.NombreArea}</option>
+                                ))}
                             </select>
                         </div>
 
@@ -148,7 +192,9 @@ const RegisterPage = () => {
                                 required
                                 className="input-register"
                             >
-                                {/* Opciones del departamento */}
+                                {departamentos.map(departamento => (
+                                    <option key={departamento.DepartamentoID} value={departamento.DepartamentoID}>{departamento.NombreDepartamento}</option>
+                                ))}
                             </select>
                         </div>
 
@@ -162,7 +208,9 @@ const RegisterPage = () => {
                                 required
                                 className="input-register"
                             >
-                                {/* Opciones del rol */}
+                                {roles.map(rol => (
+                                    <option key={rol.RolID} value={rol.RolID}>{rol.NombreRol}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
