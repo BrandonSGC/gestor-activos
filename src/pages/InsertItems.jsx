@@ -62,43 +62,80 @@ const InsertItemsPage = () => {
         setIsModalOpen(false);
     };
 
-    const handleFileUpload = (file) => {
+    const handleFileUpload = async (file) => {
         const reader = new FileReader();
 
-        reader.onload = (event) => {
-            const fileContent = event.target.result;
-            console.log('File uploaded:', file);
-            const workbook = XLSX.read(fileContent, { type: 'binary' });
-            const sheetName = workbook.SheetNames[0];
-            const sheet = workbook.Sheets[sheetName];
+        return new Promise((resolve) => {
+            reader.onload = async (event) => {
+                const fileContent = event.target.result;
+                console.log('File uploaded:', file);
+                const workbook = XLSX.read(fileContent, { type: 'binary' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
 
-            const data = XLSX.utils.sheet_to_json(sheet, { header: 'A' });
+                const data = XLSX.utils.sheet_to_json(sheet, { header: 'A' });
 
-            const formattedData = [];
+                const formattedData = [];
 
-            for (let i = 1; i < data.length; i++) {
-                const rowData = data[i];
+                for (let i = 1; i < data.length; i++) {
+                    const rowData = data[i];
 
-                const formattedRow = {
-                    nombre: rowData.A || '',
-                    nserie: rowData.B || '',
-                    estado: rowData.C || '',
-                    condicion: rowData.D || '',
-                    modelo: rowData.E || '',
-                    departamento: rowData.F || '',
-                    area: rowData.G || '',
-                    exacta: rowData.H || '',
-                };
+                    const formattedRow = {
+                        Nombre: rowData.A || '',
+                        NumeroSerie: `${rowData.B}` || '',
+                        EstadoID: rowData.C || '',
+                        CondicionID: rowData.D || '',
+                        MarcaID: rowData.E || '',
+                        DepartamentoID: rowData.F || '',
+                        AreaID: rowData.G || '',
+                        Exacta: rowData.H || '',
+                        ModeloID: rowData.I || '',
+                    };
 
-                formattedData.push(formattedRow);
-            }
+                    formattedData.push(formattedRow);
+                }
 
-            console.log('Formatted content:', formattedData);
-        };
+                console.log('Formatted content:', formattedData);
 
-        reader.readAsBinaryString(file);
+                const successfulUploads = await sendToApi(formattedData);
+                resolve(successfulUploads);
+            };
+
+            reader.readAsBinaryString(file);
+        });
     };
 
+    const sendToApi = async (formattedData) => {
+        let successfulUploads = 0;
+
+        for (const rowData of formattedData) {
+            try {
+                console.log('Sending data to API:', rowData);  // Log the data before making the API request
+
+                const response = await fetch('http://127.0.0.1:8000/activos/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(rowData),
+                });
+
+                console.log('API Response:', response);  // Log the API response
+
+                if (response.ok) {
+                    successfulUploads++;
+                }
+            } catch (error) {
+                handleApiError(error);
+            }
+        }
+
+        return handleSuccessfulUpload(successfulUploads);
+    };
+
+    const handleSuccessfulUpload = (uploadedItemsCount) => {
+        alert(`${uploadedItemsCount} activos insertados exitosamente.`);
+    };
 
     const [formData, setFormData] = useState({
         nombre: '',
@@ -371,7 +408,11 @@ const InsertItemsPage = () => {
                         </button>
                     </div>
                     {isModalOpen && (
-                        <ExcelUploadModal closeModal={closeModal} handleFileUpload={handleFileUpload} />
+                        <ExcelUploadModal
+                            closeModal={closeModal}
+                            handleFileUpload={handleFileUpload}
+                            handleSuccessfulUpload={handleSuccessfulUpload}
+                        />
                     )}
                 </form>
             </div>

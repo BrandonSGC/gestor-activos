@@ -6,18 +6,20 @@ import { getDepartments } from '../helpers/getDepartments';
 import { getRoles } from '../helpers/getRoles';
 import { createUser } from '../helpers/createUser';
 
-const ModifyUserPage = ({ id = null }) => {
+import { useParams } from 'react-router-dom';
+const ModifyUserPage = () => {
+    const { id } = useParams();
     const { user, updateUser } = useContext(UserContext);
     const [formData, setFormData] = useState({
-        cedula: id == null ? user.Cedula : '',
-        nombre: id == null ? user.Nombre : '',
-        apellidos: id == null ? `${user.PrimerApellido} ${user.SegundoApellido}` : '',
-        correo: id == null ? user.Correo : '',
-        usuario: id == null ? user.Usuario : '',
-        contraseña: id == null ? user.Contraseña : '',
-        area: id == null ? user.AreaID : '',
-        departamento: id == null ? user.DepartamentoID : '',
-        rol: id == null ? user.RolID : '',
+        cedula: id === '0' ? user.Cedula : '',
+        nombre: id === '0' ? user.Nombre : '',
+        apellidos: id === '0' ? `${user.PrimerApellido} ${user.SegundoApellido}` : '',
+        correo: id === '0' ? user.Correo : '',
+        usuario: id === '0' ? user.Usuario : '',
+        contraseña: id === '0' ? user.Contraseña : '',
+        area: id === '0' ? user.AreaID : '',
+        departamento: id === '0' ? user.DepartamentoID : '',
+        rol: id === '0' ? user.RolID : '',
     });
 
     const [areas, setAreas] = useState([]);
@@ -34,11 +36,12 @@ const ModifyUserPage = ({ id = null }) => {
     }, [])
 
     useEffect(() => {
-        if (id !== null) {
+        if (id !== '0') {
             fetch(`http://127.0.0.1:8000/usuarios/`)
                 .then(response => response.json())
                 .then(data => {
-                    const usuarioEncontrado = data.find(usuario => usuario.Cedula === id);
+                    const usuarioEncontrado = data.find(usuario => usuario.Cedula.toString() === id);
+                    console.log(usuarioEncontrado);
                     if (usuarioEncontrado) {
                         setFormData({
                             cedula: usuarioEncontrado.Cedula,
@@ -56,7 +59,6 @@ const ModifyUserPage = ({ id = null }) => {
                 .catch(error => console.error('Error al obtener datos del usuario:', error));
         }
     }, [id]);
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -112,7 +114,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 value={formData.cedula}
                                 onChange={handleInputChange}
                                 pattern="[0-9]{9}"
-                                disabled={id == null}
+                                disabled
                                 required
                                 className="input-modify"
                             />
@@ -127,7 +129,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 value={formData.nombre}
                                 onChange={handleInputChange}
                                 pattern="[A-Za-z ]{1,50}"
-                                disabled={id !== null}
+                                disabled={id !== 0}
                                 required
                                 className="input-modify"
                             />
@@ -141,7 +143,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 name="apellidos"
                                 value={formData.apellidos}
                                 onChange={handleInputChange}
-                                disabled={id !== null}
+                                disabled={id !== 0}
                                 pattern="[A-Za-z ]{1,50}"
                                 required
                                 className="input-modify"
@@ -158,7 +160,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 id="correo"
                                 name="correo"
                                 value={formData.correo}
-                                disabled={id !== null}
+                                disabled={id !== 0}
                                 onChange={handleInputChange}
                                 required
                                 className="input-modify"
@@ -175,7 +177,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 onChange={handleInputChange}
                                 pattern="[A-Za-z0-9]{1,20}"
                                 required
-                                disabled={id == null}
+                                disabled={id == 0}
                                 className="input-modify"
                             />
                         </div>
@@ -188,7 +190,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 name="contraseña"
                                 value={formData.contraseña}
                                 onChange={handleInputChange}
-                                disabled={id !== null}
+                                disabled={id !== 0}
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                                 required
                                 className="input-modify"
@@ -205,7 +207,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 value={formData.area}
                                 onChange={handleInputChange}
                                 required
-                                disabled={id == null}
+                                disabled={id == 0}
                                 className="input-register"
                             >
                                 {areas.map(area => (
@@ -222,7 +224,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 value={formData.departamento}
                                 onChange={handleInputChange}
                                 required
-                                disabled={id == null}
+                                disabled={id == 0}
                                 className="input-register"
                             >
                                 {departamentos.map(departamento => (
@@ -239,7 +241,7 @@ const ModifyUserPage = ({ id = null }) => {
                                 value={formData.rol}
                                 onChange={handleInputChange}
                                 required
-                                disabled={id == null}
+                                disabled={id == 0}
                                 className="input-register"
                             >
                                 {roles.map(rol => (
